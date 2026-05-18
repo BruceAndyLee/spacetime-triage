@@ -1,0 +1,8 @@
+{
+  "dev": {
+    "run": "pnpm run dev"
+  },
+  "server": "maincloud",
+  "database": "my-spacetime-app-3fcct",
+  "module-path": "./spacetimedb"
+}

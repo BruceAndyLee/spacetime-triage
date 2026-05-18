@@ -1,0 +1,2 @@
+spacetime call plant_tree Mamyropaea
+spacetime call plant_tree Pathaeromaea
