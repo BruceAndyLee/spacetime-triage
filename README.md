@@ -48,67 +48,24 @@ my-spacetime-app/
 
 
 
-## Understand tables and reducers
+## Call reducers & inspect state
 
-Open `spacetimedb/src/index.ts` to see the module code. The template includes a `person` table and two reducers: `add` to insert a person, and `sayHello` to greet everyone.
-
-Tables store your data. Reducers are functions that modify data — they're the only way to write to the database.
-
-```typescript
-import { schema, table, t } from 'spacetimedb/server';
-
-const spacetimedb = schema({
-  person: table(
-    { public: true },
-    {
-      name: t.string(),
-    }
-  ),
-});
-export default spacetimedb;
-
-export const add = spacetimedb.reducer(
-  { name: t.string() },
-  (ctx, { name }) => {
-    ctx.db.person.insert({ name });
-  }
-);
-
-export const sayHello = spacetimedb.reducer(ctx => {
-  for (const person of ctx.db.person.iter()) {
-    console.info(`Hello, ${person.name}!`);
-  }
-  console.info('Hello, World!');
-});
-```
-
-
-
-## Test with the CLI
-
-Open a new terminal and navigate to your project directory. Then use the SpacetimeDB CLI to call reducers and query your data directly.
-
+add a tree
 ```bash
-cd my-spacetime-app
-
-# Call the add reducer to insert a person
-spacetime call add Alice
-
-# Query the person table
-spacetime sql "SELECT * FROM person"
- name
----------
- "Alice"
-
-# Call sayHello to greet everyone
-spacetime call say_hello
-
-# View the module logs
-spacetime logs
-2025-01-13T12:00:00.000000Z  INFO: Hello, Alice!
-2025-01-13T12:00:00.000000Z  INFO: Hello, World!
+spacetime call plant_tree Entroponetophaea
 ```
 
-## Next steps
+Checkout the updated state of the db
+```bash
+spacetime sql "SELECT * from tree"
+```
 
-- Read the [TypeScript SDK Reference](https://spacetimedb.com/docs/intro/core-concepts/clients/typescript-reference) for detailed API docs
+Iterate the growth of one of the nodes
+```bash
+spacetime call grow_tree_node 1 1
+```
+
+Checkout the updated state of the db
+```bash
+spacetime sql "SELECT * from node"
+```
